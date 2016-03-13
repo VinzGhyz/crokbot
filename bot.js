@@ -180,6 +180,6 @@ function formatUptime(uptime) {
     return uptime;
 }
 
-controller.setupWebserver(process.env.PORT,function(err,express_webserver) {
-  controller.createWebhookEndpoints(express_webserver)
-});
+// controller.setupWebserver(process.env.PORT,function(err,express_webserver) {
+//  controller.createWebhookEndpoints(express_webserver)
+// });
