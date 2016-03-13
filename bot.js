@@ -74,6 +74,11 @@ var bot = controller.spawn({
     token: "xoxb-24729285108-fuzQgxZ0yK62PSvAFnzRef7S"
 }).startRTM();
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+|
+|    Example actions
+|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 controller.hears(['hello','hi', 'hey'],'direct_message,direct_mention,mention',function(bot, message) {
 
@@ -180,6 +185,26 @@ function formatUptime(uptime) {
     return uptime;
 }
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+|
+|    Custom actions
+|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+controller.hears(['qui a les plus grosses maracas'],'direct_message,direct_mention,mention',function(bot, message) {
+
+    controller.storage.users.get(message.user,function(err, user) {
+        if (user && user.name) {
+            bot.reply(message,'Celui qui a les plus grosses maracas, c\'est bien toi ' + user.name);
+        } else {
+            bot.reply(message,'Celui qui a les plus grosses maracas, c\'est bien toi !');
+        }
+    });
+});
+
+
+
+// Heroku needs a webserver otherwise it quits the process
 // controller.setupWebserver(process.env.PORT,function(err,express_webserver) {
 //  controller.createWebhookEndpoints(express_webserver)
 // });
