@@ -192,16 +192,40 @@ function formatUptime(uptime) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 controller.hears(['qui a les plus grosses maracas'],'direct_message,direct_mention,mention',function(bot, message) {
-
-    controller.storage.users.get(message.user,function(err, user) {
-        if (user && user.name) {
-            bot.reply(message,'Celui qui a les plus grosses maracas, c\'est bien toi ' + user.name);
-        } else {
-            bot.reply(message,'Celui qui a les plus grosses maracas, c\'est bien toi !');
-        }
-    });
+    bot.reply(message,'Celui qui a les plus grosses maracas, c\'est bien toi !');
 });
 
+controller.hears(['qui est là', 'qui est au crokot', 'qui est à l\'appart'],'direct_message,direct_mention,mention,ambient',function(bot, message) {
+
+   bot.reply(message, 'Laisse moi trois-quatre secondes, je regarde.');
+
+   var output = 'Ont répondu présent à l\'appel:',
+       emptyCrokot = true;
+
+   var exec = require('child_process').exec;
+   var child = exec('nmap -sL 192.168.1.1/24', function(error, stdout, stderr) {
+      var lines = stdout.split('\n');
+
+      for (var i=0, line, device; i<lines.length; i++) {
+        // we've hit a device if it has a name in the report (thus, the ip address is further than position 21)
+        line = lines[i];
+
+        if ((line.indexOf('scan report for') != -1) && (line.indexOf('192.168.1') != 21)) {
+          device = line.substr(21).split(' ')[0].split('.lan')[0];
+          console.log(device);
+
+          if (['dsldevice', 'raspberrypi', 'Linux', 'TG589BvacXtream-AP-49B2FE'].indexOf(device) == -1) {
+            output += '\n' + device;
+            emptyCrokot = false;
+          }
+        }
+      }
+
+      if (emptyCrokot) { output = 'Il semble bien que personne ne soit là pour le moment !'; }
+
+      bot.reply(message, output);
+   });
+});
 
 
 // Heroku needs a webserver otherwise it quits the process
