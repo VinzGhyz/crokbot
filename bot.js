@@ -197,24 +197,24 @@ controller.hears(['qui a les plus grosses maracas'],'direct_message,direct_menti
 
 controller.hears(['qui est là', 'qui est au crokot', 'qui est à l\'appart'],'direct_message,direct_mention,mention,ambient',function(bot, message) {
 
-   bot.reply(message, 'Laisse moi trois-quatre secondes, je regarde.');
+   bot.reply(message, 'Laisse moi une ou deux minutes, je regarde.');
 
    var output = 'Ont répondu présent à l\'appel:',
        emptyCrokot = true;
 
    var exec = require('child_process').exec;
-   var child = exec('nmap -sL 192.168.1.1/24', function(error, stdout, stderr) {
+   var child = exec('sudo nmap -PO 192.168.1.1/24 --exclude 192.168.1.1', function(error, stdout, stderr) {
       var lines = stdout.split('\n');
 
       for (var i=0, line, device; i<lines.length; i++) {
         // we've hit a device if it has a name in the report (thus, the ip address is further than position 21)
         line = lines[i];
 
-        if ((line.indexOf('scan report for') != -1) && (line.indexOf('192.168.1') != 21)) {
-          device = line.substr(21).split(' ')[0].split('.lan')[0];
+        if (line.indexOf('Nmap scan report for') != -1) {
+          device = line.substr(21).split('.lan')[0];
           console.log(device);
 
-          if (['dsldevice', 'raspberrypi', 'Linux', 'TG589BvacXtream-AP-49B2FE'].indexOf(device) == -1) {
+          if (['raspberrypi', 'Linux', 'TG589BvacXtream-AP-49B2FE', '192.168.1.65'].indexOf(device) == -1) {
             output += '\n' + device;
             emptyCrokot = false;
           }
