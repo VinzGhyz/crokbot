@@ -85,11 +85,8 @@ var checkPoubelles = function() {
 			sendSlackMessage('Hey les keks, oubliez pas de sortir les poubelles '+cal['content']+' !\nGenre demain avant 6h pour bien faire :wink:');
 
 			console.log('Found something! Notified the team via Slack');
-			break;
 		}
 	}
-
-	console.log('Found nothing! Weird, I thought today was trash day..');
 };
 
 
