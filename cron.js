@@ -76,14 +76,20 @@ var checkPoubelles = function() {
 	],
 		moment = require('moment');
 
+	console.log('Looking through the calendar to see if today we should take the trash out');
+
 	for (var i = calendar.length - 1, tomorrow = moment().add(1, 'days').format('DD/MM/YYYY'), cal; i >= 0; i--) {
 		cal = calendar[i];
+		
 		if (tomorrow == cal['date']) {
 			sendSlackMessage('Hey les keks, oubliez pas de sortir les poubelles '+cal['content']+' !\nGenre demain avant 6h pour bien faire :wink:');
+
+			console.log('Found something! Notified the team via Slack');
 			break;
 		}
-
 	}
+
+	console.log('Found nothing! Weird, I thought today was trash day..');
 };
 
 
