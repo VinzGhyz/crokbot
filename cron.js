@@ -117,7 +117,7 @@ var checkPoubelles = function() {
 		}
 	}
 
-	if (!messageSent) sendSlackMessage('Hey les gars, je pense que mon calendrier des poubelles n'est plus à jour :thinking_face:');
+	if (!messageSent) sendSlackMessage("Hey les gars, je pense que mon calendrier des poubelles n'est plus à jour :thinking_face:");
 };
 
 
