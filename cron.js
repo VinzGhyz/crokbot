@@ -98,7 +98,7 @@ var checkPoubelles = function() {
 		{date: '23/08/2016', content: 'blanches et bleues'},
 		{date: '24/08/2016', content: 'organiques'},
 		{date: '26/08/2016', content: 'blanches'},
-		{date: '30/08/2016', content: 'blanches et carton'}
+		{date: '30/08/2016', content: 'blanches et carton'},
 		{date: '31/08/2016', content: 'organiques'}
 	],
 		moment = require('moment'),
