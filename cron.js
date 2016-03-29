@@ -121,6 +121,12 @@ var checkPoubelles = function() {
 };
 
 
+
+var remindRent = function() {
+	sendSlackMessage('Yo les boys, on est déjà le 8 faut déjà repenser au loyer qui va tomber bientôt.. :money_with_wings::money_with_wings::money_with_wings:');
+};
+
+
 /*
  * Execute the different actions depending on the --action argument
  * sent when launching the script
@@ -132,6 +138,11 @@ switch(argv['action']) {
 	case 'poubelles':
 		console.log('Je lance la routine pour savoir quelles sont les poubelles à sortir ce soir');
 		checkPoubelles();
+		break;
+
+	case 'rent':
+		console.log('Je m\'apprête à leur rappeler gentiment que le loyer approche');
+		remindRent();
 		break;
 
 	default:
