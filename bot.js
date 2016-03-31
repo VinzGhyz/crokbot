@@ -234,6 +234,25 @@ controller.hears(['villo'],'direct_message,direct_mention,mention',function(bot,
 
   var JCDecauxAPIKey = '7a230ed7811b8d369890b92eb2d21e9d5e1d2f79',
   stationGermoir = 106;
+  stationBaucq = 184;
+
+  request('https://api.jcdecaux.com/vls/v1/stations/'+stationBaucq+'?contract=Bruxelles-Capitale&apiKey='+JCDecauxAPIKey, function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var infos = JSON.parse(body);
+
+      var filling = Math.floor(infos.available_bikes / infos.bike_stands * 100);
+
+      if (filling == 0) {
+        bot.reply(message, ':poop: Scheisse, la station *Philippe Baucq* est vide!');
+      } else if (filling <= 25) {
+        bot.reply(message, 'Il reste moins d\'un quart des villos disponibles ('+ infos.available_bikes +' sur '+ infos.bike_stands +') à *Philippe Baucq*, bouge-toi!');
+      } else {
+        bot.reply(message, 'On est large, il y a toujours '+ infos.available_bikes +' villos disponibles à *Philippe Baucq* –soit '+ filling+'% pour ceux qui comptent :nerd_face:. Bonne balade :bicyclist: !');
+      }
+    } else {
+      bot.reply(message, 'Y a comme qui dirait une couille dans le pâté Jack, réessaie plus tard peut-être.');
+    }
+  });
 
   request('https://api.jcdecaux.com/vls/v1/stations/'+stationGermoir+'?contract=Bruxelles-Capitale&apiKey='+JCDecauxAPIKey, function(error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -242,11 +261,11 @@ controller.hears(['villo'],'direct_message,direct_mention,mention',function(bot,
       var filling = Math.floor(infos.available_bikes / infos.bike_stands * 100);
 
       if (filling == 0) {
-        bot.reply(message, ':poop: Scheisse, la station est vide!');
+        bot.reply(message, ':poop: Scheisse, la station *Germoir* est vide!');
       } else if (filling <= 25) {
-        bot.reply(message, 'Il reste moins d\'un quart des villos disponibles ('+ infos.available_bikes +' sur '+ infos.bike_stands +'), bouge-toi!');
+        bot.reply(message, 'Il reste moins d\'un quart des villos disponibles ('+ infos.available_bikes +' sur '+ infos.bike_stands +') à *Germoir*, bouge-toi!');
       } else {
-        bot.reply(message, 'On est large, il y a toujours '+ infos.available_bikes +' villos disponibles –soit '+ filling+'% des emplacements, pour ceux qui comptent :nerd_face:. Bonne balade :bicyclist: !');
+        bot.reply(message, 'On est large, il y a toujours '+ infos.available_bikes +' villos disponibles à *Germoir* –soit '+ filling+'% pour ceux qui comptent :nerd_face:. Bonne balade :bicyclist: !');
       }
     } else {
       bot.reply(message, 'Y a comme qui dirait une couille dans le pâté Jack, réessaie plus tard peut-être.');
