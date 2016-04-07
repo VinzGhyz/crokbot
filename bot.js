@@ -8,55 +8,6 @@
 
 This is a sample Slack bot built with Botkit.
 
-This bot demonstrates many of the core features of Botkit:
-
-* Connect to Slack using the real time API
-* Receive messages based on "spoken" patterns
-* Reply to messages
-* Use the conversation system to ask questions
-* Use the built in storage system to store and retrieve information
-  for a user.
-
-# RUN THE BOT:
-
-  Get a Bot token from Slack:
-
-    -> http://my.slack.com/services/new/bot
-
-  Run your bot from the command line:
-
-    token=<MY TOKEN> node bot.js
-
-# USE THE BOT:
-
-  Find your bot inside Slack to send it a direct message.
-
-  Say: "Hello"
-
-  The bot will reply "Hello!"
-
-  Say: "who are you?"
-
-  The bot will tell you its name, where it running, and for how long.
-
-  Say: "Call me <nickname>"
-
-  Tell the bot your nickname. Now you are friends.
-
-  Say: "who am I?"
-
-  The bot will tell you your nickname, if it knows one for you.
-
-  Say: "shutdown"
-
-  The bot will ask if you are sure, and then shut itself down.
-
-  Make sure to invite your bot into other channels using /invite @<my bot>!
-
-# EXTEND THE BOT:
-
-  Botkit is has many features for building cool and useful bots!
-
   Read all about it here:
 
     -> http://howdy.ai/botkit
@@ -75,11 +26,11 @@ This bot demonstrates many of the core features of Botkit:
       token: "xoxb-24729285108-fuzQgxZ0yK62PSvAFnzRef7S"
     }).startRTM();
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-|
-|    Example actions
-|
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Example actions
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 controller.hears(['hello','hi', 'hey'],'direct_message,direct_mention,mention',function(bot, message) {
 
@@ -186,11 +137,11 @@ function formatUptime(uptime) {
   return uptime;
 }
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-|
-|    Custom actions
-|
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+      Custom actions
+
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 controller.hears(['qui a les plus grosses maracas'],'direct_message,direct_mention,mention',function(bot, message) {
   bot.reply(message,'Celui qui a les plus grosses maracas, c\'est bien toi !');
@@ -272,7 +223,18 @@ controller.hears(['villo'],'direct_message,direct_mention,mention',function(bot,
     }
   });
 
+});
 
+controller.hears(['adresse ip'],'direct_message',function(bot, message) {
+  
+  request('http://icanhazip.com', function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      bot.reply(message,'Mon adresse IP sur le réseau internet global est *'+ body +'* :sunglasses:');
+    } else {
+      bot.reply(message,'Y a une couille dans le pâté boss, j\'ai pas su choper l\'adresse IP :poop:');
+    }
+  });
+  
 });
 
 // Heroku needs a webserver otherwise it quits the process
