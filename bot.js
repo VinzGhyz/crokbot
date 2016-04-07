@@ -154,29 +154,30 @@ controller.hears(['qui est là', 'qui est au crokot', 'qui est à l\'appart'],'d
  var output = 'Ont répondu présent à l\'appel:',
  emptyCrokot = true;
 
- var exec = require('child_process').exec;
- var child = exec('sudo nmap -PO 192.168.1.1/24 --exclude 192.168.1.1', function(error, stdout, stderr) {
-  var lines = stdout.split('\n');
+  var exec = require('child_process').exec;
+  var child = exec('sudo nmap -PO 192.168.1.1/24 --exclude 192.168.1.1', function(error, stdout, stderr) {
+    var lines = stdout.split('\n');
 
-  for (var i=0, line, device; i<lines.length; i++) {
-        // we've hit a device if it has a name in the report (thus, the ip address is further than position 21)
-        line = lines[i];
+    for (var i=0, line, device; i<lines.length; i++) {
+      // we've hit a device if it has a name in the report (thus, the ip address is further than position 21)
+      line = lines[i];
 
-        if (line.indexOf('Nmap scan report for') != -1) {
-          device = line.substr(21).split('.lan')[0];
-          console.log(device);
+      if (line.indexOf('Nmap scan report for') != -1) {
+        device = line.substr(21).split('.lan')[0];
+        console.log(device);
 
-          if (['raspberrypi', 'Linux', 'TG589BvacXtream-AP-49B2FE', '192.168.1.65'].indexOf(device) == -1) {
-            output += '\n' + device;
-            emptyCrokot = false;
-          }
+        if (['raspberrypi', 'Linux', 'TG589BvacXtream-AP-49B2FE', '192.168.1.65'].indexOf(device) == -1) {
+          output += '\n' + device;
+          emptyCrokot = false;
         }
       }
+    }
 
-      if (emptyCrokot) { output = 'Il semble bien que personne ne soit là pour le moment !'; }
+    if (emptyCrokot) { output = 'Il semble bien que personne ne soit là pour le moment !'; }
 
-      bot.reply(message, output);
-    });
+    bot.reply(message, output);
+  });
+  
 });
 
 controller.hears(['villo'],'direct_message,direct_mention,mention',function(bot, message) {
@@ -234,6 +235,13 @@ controller.hears(['adresse ip'],'direct_message',function(bot, message) {
       bot.reply(message,'Y a une couille dans le pâté boss, j\'ai pas su choper l\'adresse IP :poop:');
     }
   });
+
+});
+
+controller.hears(['reboot'], 'direct_message', function(bot, message) {
+
+  var exec = require('child_process').exec;
+  exec('sudo reboot');
 
 });
 
