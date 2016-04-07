@@ -123,7 +123,7 @@ var checkPoubelles = function() {
 
 
 var remindRent = function() {
-	sendSlackMessage('Yo les boys, on est déjà le 8 faut déjà repenser au loyer qui va tomber bientôt.. :money_with_wings::money_with_wings::money_with_wings:');
+	sendSlackMessage('Yo les boys, on est déjà le 8 faut déjà repenser au loyer qui va tomber bientôt.. :money_with_wings::money_with_wings::money_with_wings:\nPour rappel, les loyers sont respectivement de *477*€ et *517*€.');
 };
 
 
