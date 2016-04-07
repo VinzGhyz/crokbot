@@ -229,12 +229,12 @@ controller.hears(['adresse ip'],'direct_message',function(bot, message) {
   
   request('http://icanhazip.com', function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      bot.reply(message,'Mon adresse IP sur le réseau internet global est *'+ body +'* :sunglasses:');
+      bot.reply(message,'Mon adresse IP sur le réseau internet global est *'+ body.replace('\n', '') +'* :sunglasses:');
     } else {
       bot.reply(message,'Y a une couille dans le pâté boss, j\'ai pas su choper l\'adresse IP :poop:');
     }
   });
-  
+
 });
 
 // Heroku needs a webserver otherwise it quits the process
