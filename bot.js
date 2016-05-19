@@ -14,6 +14,8 @@ This is a sample Slack bot built with Botkit.
 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+    require('dotenv').config();
+
     var Botkit = require('./lib/Botkit.js');
     var os = require('os');
     var request = require('request');
