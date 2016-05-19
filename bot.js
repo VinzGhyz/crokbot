@@ -23,7 +23,7 @@ This is a sample Slack bot built with Botkit.
     });
 
     var bot = controller.spawn({
-      token: "xoxb-24729285108-fuzQgxZ0yK62PSvAFnzRef7S"
+      token: "xoxb-24729285108-bDx5wF4LF2uVuNRqymM8QFEF"
     }).startRTM();
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -177,7 +177,7 @@ controller.hears(['qui est là', 'qui est au crokot', 'qui est à l\'appart'],'d
 
     bot.reply(message, output);
   });
-  
+
 });
 
 controller.hears(['villo'],'direct_message,direct_mention,mention',function(bot, message) {
@@ -230,7 +230,7 @@ controller.hears(['adresse ip'],'direct_message',function(bot, message) {
   
   request('http://icanhazip.com', function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      bot.reply(message,'Mon adresse IP sur le réseau internet global est *'+ body.replace('\n', '') +'* :sunglasses:');
+      bot.reply(message,'Mon adresse IP sur le réseau internet global est *'+ body.replace('\n', '') +'* :sunglasses:, connecte-toi en ssh via le port 1222');
     } else {
       bot.reply(message,'Y a une couille dans le pâté boss, j\'ai pas su choper l\'adresse IP :poop:');
     }
