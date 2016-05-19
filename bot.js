@@ -23,7 +23,7 @@ This is a sample Slack bot built with Botkit.
     });
 
     var bot = controller.spawn({
-      token: "xoxb-24729285108-bDx5wF4LF2uVuNRqymM8QFEF"
+      token: process.env.SLACK_TOKEN
     }).startRTM();
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
